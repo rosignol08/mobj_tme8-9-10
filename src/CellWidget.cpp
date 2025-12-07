@@ -16,7 +16,6 @@
 #include  "Node.h"
 #include  "Net.h"
 
-
 namespace Netlist {
 
   using namespace std;

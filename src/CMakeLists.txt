@@ -10,8 +10,7 @@
  set (CMAKE_INSTALL_PREFIX       "../install" )
 
  find_package(LibXml2 REQUIRED)
- find_package(Qt5     REQUIRED Widgets Core)
-# include(${QT5_USE_FILE})
+ find_package(Qt5 REQUIRED COMPONENTS Widgets Core)
 
     include_directories( ${SCHEMATIC_SOURCE_DIR}
                          ${LIBXML2_INCLUDE_DIR}
@@ -54,9 +53,10 @@
                                       Main.cpp
                        )
 
-           qt5_wrap_cpp( mocCpps      ${mocIncludes} )
+           #qt4_wrap_cpp( mocCpps      ${mocIncludes} )
+           qt5_wrap_cpp( mocCpps ${mocIncludes} )
 
          add_executable( tme810       ${cpps} ${mocCpps} )
-  target_link_libraries( tme810       QT5::Widgets QT5::Core ${LIBXML2_LIBRARIES} )
+  target_link_libraries( tme810       Qt5::Widgets Qt5::Core ${LIBXML2_LIBRARIES} )
                 install( TARGETS      tme810                      DESTINATION bin )
                 install( FILES        ${includes} ${mocIncludes}  DESTINATION include )

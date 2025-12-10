@@ -17,17 +17,14 @@ namespace Netlist{
     class InstancesModel : public QAbstractTableModel {
         //Q_OBJECT;
         private:
-            Cell * cell_; //TODO mettre une etoile ou pas
-            int row = 0;
+            Cell * cell_;
         public:
-            //string
-            InstancesModel(InstancesWidget * parent); //string nom_instance, string nom_model
-            Instance getModel(); //TODO à voir
+            InstancesModel(InstancesWidget * parent);
+            Instance* getModel(int row);
             void setCell(Cell * cell);
             int rowCount(const QModelIndex& parent = QModelIndex()) const;
             int columnCount(const QModelIndex& parent = QModelIndex()) const;
             QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-
     };
 
 

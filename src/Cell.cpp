@@ -32,17 +32,20 @@ namespace Netlist {
 
   Cell* Cell::load ( const string& cellName )
   {
-    string           cellFile = "../work/cells/" + cellName + ".xml";
+    string cellFile = "../work/cells/" + cellName + ".xml";
     xmlTextReaderPtr reader;
 
     cerr << "Loading <" << cellFile << ">" << endl;
     reader = xmlNewTextReaderFilename( cellFile.c_str() );
+    std::cout << "reader créé : " << reader << std::endl;
     if (reader == NULL) {
       cerr << "[ERROR] Cell::load() unable to open file <" << cellFile << ">." << endl;
       return NULL;
     }
-
+    std::cout << "reader pas null\n"  << std::endl;
     Cell* cell = Cell::fromXml( reader );
+    std::cout << "from xml fait\n" << std::endl;
+    std::cout << "cell init " << cell->getName() << std::endl;
     xmlFreeTextReader( reader );
 
     return cell;

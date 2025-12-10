@@ -1,4 +1,4 @@
-#include "SaveCellDialog.h"
+#include "OpenCellDialog.h"
 #include <QLabel>
 #include <QPushButton>
 #include <QFrame>
@@ -9,11 +9,11 @@
 
 namespace Netlist{
 
-  SaveCellDialog::SaveCellDialog (QWidget* parent)
+  OpenCellDialog::OpenCellDialog (QWidget* parent)
   :QDialog(NULL)
   ,lineEdit_(NULL)
   {
-    setWindowTitle(tr("Save Cell"));
+    setWindowTitle(tr("Open Cell"));
   
     QLabel* label = new QLabel();
     label->setText(tr("Enter Cell name (without extension)"));
@@ -47,20 +47,24 @@ namespace Netlist{
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
   }
 
-  SaveCellDialog::~SaveCellDialog() {}
+  OpenCellDialog::~OpenCellDialog() {}
 
-  bool  SaveCellDialog::run (QString& name){
-    setCellName(name);
-    int dialogResult = exec();
-    name = getCellName();
+  bool OpenCellDialog::run (QString& name){
+    OpenCellDialog* openCellDialog = new OpenCellDialog();
+
+    openCellDialog->setCellName(name);
+    int dialogResult = openCellDialog->exec();
+    name = openCellDialog->getCellName();
+
+    delete openCellDialog;
     return (dialogResult == Accepted);
   }
 
-  const QString SaveCellDialog::getCellName   () const {
+  const QString OpenCellDialog::getCellName   () const {
     return lineEdit_->text();
   }
 
-  void  SaveCellDialog::setCellName           (const QString& name){
+  void  OpenCellDialog::setCellName           (const QString& name){
     return lineEdit_->setText(name);
   }
 

@@ -26,11 +26,17 @@
                                       Node.h
                                       Line.h
                                       Shape.h
+                                      TermShape.h
+                                      BoxShape.h
+                                      LineShape.h
+                                      EllipseShape.h
+                                      ArcShape.h
                                       Symbol.h
                                       Cell.h
                        )
 
                     set( mocIncludes  SaveCellDialog.h
+                                      OpenCellDialog.h
                                       CellWidget.h
                                       CellViewer.h
                        )
@@ -45,9 +51,15 @@
                                       Node.cpp
                                       Line.cpp
                                       Shape.cpp
+                                      TermShape.cpp
+                                      BoxShape.cpp
+                                      LineShape.cpp
+                                      EllipseShape.cpp
+                                      ArcShape.cpp
                                       Symbol.cpp
                                       Cell.cpp
                                       SaveCellDialog.cpp
+                                      OpenCellDialog.cpp
                                       CellWidget.cpp
                                       CellViewer.cpp
                                       Main.cpp

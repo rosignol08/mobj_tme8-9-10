@@ -33,6 +33,10 @@
                                       ArcShape.h
                                       Symbol.h
                                       Cell.h
+                                      InstancesWidget.h
+                                      InstancesModel.h
+                                      CellsLib.h
+                                      CellsModel.h
                        )
 
                     set( mocIncludes  SaveCellDialog.h
@@ -62,6 +66,10 @@
                                       OpenCellDialog.cpp
                                       CellWidget.cpp
                                       CellViewer.cpp
+                                      InstancesWidget.cpp
+                                      InstancesModel.cpp
+                                      CellsLib.cpp
+                                      CellsModel.cpp
                                       Main.cpp
                        )
 

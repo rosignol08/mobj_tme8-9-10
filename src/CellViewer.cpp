@@ -1,5 +1,6 @@
 #include "CellViewer.h"
-#include "OpenCellDialog.h"
+//#include "CellWidget.h"
+//#include "SaveCellDialog.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
@@ -9,10 +10,9 @@
 namespace Netlist{
     CellViewer::CellViewer (QWidget* parent)
   :QMainWindow(parent)
-  //, cellWidget(parent)
   ,cellWidget_(NULL)
-  //  cellsLib_(),
-  //  instancesWidget_(),
+  ,cellsLib_()
+  ,instancesWidget_()
   ,saveCellDialog_()
   {
     cellWidget_ = new CellWidget();
@@ -77,6 +77,10 @@ namespace Netlist{
         setCell(cell);
       }
     }
+  }
+
+  void CellViewer::showInstancesWidget (){
+    
   }
 
 }

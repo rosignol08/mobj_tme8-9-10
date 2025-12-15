@@ -43,6 +43,7 @@
                                       OpenCellDialog.h
                                       CellWidget.h
                                       CellViewer.h
+                                      InstancesWidget.h
                        )
 
                     set( cpps         Indentation.cpp

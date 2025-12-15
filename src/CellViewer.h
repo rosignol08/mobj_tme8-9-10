@@ -1,15 +1,15 @@
-#pragma once
 #include <QDialog>
 #include <QMainWindow>
 #include "Cell.h"
 #include "CellWidget.h"
 #include "SaveCellDialog.h"
-#include "InstancesWidget.h"
 #include "OpenCellDialog.h"
-#include "CellsLib.h"
 #include "CellWidget.h"
+
 namespace Netlist{
+  class CellsLib;
   class InstancesWidget;
+
   class CellViewer : public QMainWindow {
     Q_OBJECT;
 
@@ -17,7 +17,7 @@ namespace Netlist{
                         CellViewer          (QWidget* parent=NULL);
       virtual          ~CellViewer          ();
               Cell*     getCell             () const;
-              inline  CellsLib* getCellsLib         ();  // TME9+.
+              inline  CellsLib* getCellsLib ();  // TME9+.
     public slots:
               void      setCell             (Cell*);
               void      saveCell            ();

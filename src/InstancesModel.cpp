@@ -3,39 +3,69 @@
 #include "Instance.h"
 
 namespace Netlist{
-    InstancesModel::InstancesModel(InstancesWidget* parent)
-      : QAbstractTableModel(parent)
-      , cell_(nullptr) {
+    InstancesModel::InstancesModel(QObject* parent)
+      :QAbstractTableModel(parent)
+      ,cell_(NULL) 
+    { }//string nom_instance, string nom_model
 
-      }//string nom_instance, string nom_model
-    Instance InstancesModel::getModel(){
-        //TODO checker si ça marche
-        return cell_->getInstances()[row];
-    }
+    InstancesModel::~InstancesModel()
+    { }
+
     void InstancesModel::setCell(Cell * cell){
-        this->cell_ = cell;
+      emit layoutAboutToBeChanged();  
+      cell_ = cell;
+      emit layoutChanged();
     }
-    int QAbstractItemModel::rowCount(const QModelIndex& parent) const{
-        //return cell_->getInstances().size();
-        if (cell_ == nullptr) return 0;
-        return static_cast<int>(cell_->getInstances().size());//TODO checker si ça marche
+
+    Cell* InstancesModel::getModel(int row)
+    {
+      if (not cell_) return NULL;
+      if (row >= (int)cell_->getInstances().size()) return NULL;
+      return cell_->getInstances()[row]->getMasterCell();
     }
-    int QAbstractItemModel::columnCount(const QModelIndex& parent) const{
-        return 2; //psk 2 collones
+
+    int InstancesModel::rowCount(const QModelIndex& parent) const{
+      // if (cell_ == nullptr) return 0;
+      // return static_cast<int>(cell_->getInstances().size());//TODO checker si ça marche
+      return (cell_) ? cell_->getInstances().size() : 0;
     }
-    QVariant QAbstractItemModel::data(const QModelIndex& parent, int) const{
-        //le nom de la cell ou de la master cell
-        if (not parent.isValid()) return QVariant();
-        if (parent.row() >= (int)cell_->getInstances().size()) return QVariant();
-        
-        Instance* instance = cell_->getInstances()[parent.row()];
-        
-        if (parent.column() == 0) {
-            return QString::fromStdString(instance->getName());
-        } else if (parent.column() == 1) {
-            return QString::fromStdString(instance->getMasterCell()->getName());
+
+    int InstancesModel::columnCount(const QModelIndex& parent) const
+    { return 2; }
+
+    QVariant InstancesModel::data(const QModelIndex& index, int role) const
+    {
+      if (not cell_ or not index.isValid()) return QVariant();
+      if (role == Qt::DisplayRole){
+        int row = index.row();
+        switch (index.column()){
+          case 0: return cell_->getInstances()[row]->getName().c_str();
+          case 1: return cell_->getInstances()[row]
+                              ->getMasterCell()->getName().c_str();
         }
-        
-        return QVariant();
+      }
+      return QVariant();
+      //le nom de la cell ou de la master cell
+      // if (not parent.isValid()) return QVariant();
+      // if (parent.row() >= (int)cell_->getInstances().size()) return QVariant();
+      // Instance* instance = cell_->getInstances()[parent.row()];
+      // if (parent.column() == 0) {
+      //     return QString::fromStdString(instance->getName());
+      // } else if (parent.column() == 1) {
+      //     return QString::fromStdString(instance->getMasterCell()->getName());
+      // }
+      // return QVariant();
+    }
+
+    QVariant InstancesModel::headerData(int section, Qt::Orientation orientation, int role) const
+    {
+      if (orientation == Qt::Vertical) return QVariant();
+      if (role != Qt::DisplayRole) return QVariant();
+    
+      switch(section){
+        case 0: return "Instance";
+        case 1: return "MasterCell";
+      }
+      return QVariant();
     }
 }

@@ -1,7 +1,13 @@
+#include <QHeaderView>
+#include <QTableView>
+#include <QWidget>
 #include "InstancesWidget.h"
+#include "InstancesModel.h"
+#include "CellViewer.h"
 
 namespace Netlist{
-  InstancesWidget::InstancesWidget ( QWidget* parent )
+
+  InstancesWidget::InstancesWidget (QWidget* parent)
   :QWidget(parent)
   ,cellViewer_(NULL)
   ,baseModel_(new InstancesModel(this))
@@ -24,12 +30,21 @@ namespace Netlist{
     horizontalHeader->setMinimumSectionSize(300);
     horizontalHeader->setStretchLastSection(true);
 
-    QHeaderView* verticalHeader = view_->veritcalHeader();
+    QHeaderView* verticalHeader = view_->verticalHeader();
     verticalHeader->setVisible(false);
 
     load_->setText("Load");
     connect(load_, SIGNAL(clicked()), this, SLOT(load()));
+
+    // action = new QAction("&Load", this);
+    // action->setStatusTip("Load cell");
+    // action->setShortcut(QKeySequence("CTRL+L"));
+    // action->setVisible(true);
+    // fileMenu->addAction(action);
+    // connect(action, SIGNAL(triggered()), this, SLOT(close()));
   }
+
+  InstancesWidget::~InstancesWidget() {}
 
   void InstancesWidget::setCellViewer ( CellViewer* cellViewer){
     cellViewer_ = cellViewer;
@@ -38,7 +53,7 @@ namespace Netlist{
 
   int InstancesWidget::getSelectedRow () const {
     QModelIndexList selecteds = view_->selectionModel()->selection().indexes();
-    if (selected.empty()) return -1;
+    if (selecteds.empty()) return -1;
     return selecteds.first().row();
   }
 
@@ -48,5 +63,6 @@ namespace Netlist{
     if (selectedRow < 0) return;
     cellViewer_->setCell(baseModel_->getModel(selectedRow));
   }
+
   void InstancesWidget::setCell(Cell* cell) { cellViewer_->setCell(cell); }
 }

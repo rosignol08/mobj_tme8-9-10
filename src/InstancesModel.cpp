@@ -6,10 +6,12 @@ namespace Netlist{
     InstancesModel::InstancesModel(QObject* parent)
       :QAbstractTableModel(parent)
       ,cell_(NULL) 
-    { }//string nom_instance, string nom_model
+    {
+      if(insertRow(1, QModelIndex()) == false) std::cout << "WTFFF" << std::endl;
+    }//string nom_instance, string nom_model
 
     InstancesModel::~InstancesModel()
-    { }
+    {}
 
     void InstancesModel::setCell(Cell * cell){
       emit layoutAboutToBeChanged();  
@@ -35,6 +37,7 @@ namespace Netlist{
 
     QVariant InstancesModel::data(const QModelIndex& index, int role) const
     {
+      std::cout << "LAAAAAA" << std::endl;
       if (not cell_ or not index.isValid()) return QVariant();
       if (role == Qt::DisplayRole){
         int row = index.row();

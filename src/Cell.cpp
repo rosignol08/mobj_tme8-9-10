@@ -32,20 +32,16 @@ namespace Netlist {
 
   Cell* Cell::load ( const string& cellName )
   {
-    string cellFile = "../work/cells/" + cellName + ".xml";
+    string cellFile = cellName + ".xml";
     xmlTextReaderPtr reader;
 
     cerr << "Loading <" << cellFile << ">" << endl;
     reader = xmlNewTextReaderFilename( cellFile.c_str() );
-    std::cout << "reader créé : " << reader << std::endl;
     if (reader == NULL) {
       cerr << "[ERROR] Cell::load() unable to open file <" << cellFile << ">." << endl;
       return NULL;
     }
-    std::cout << "reader pas null\n"  << std::endl;
     Cell* cell = Cell::fromXml( reader );
-    std::cout << "from xml fait\n" << std::endl;
-    std::cout << "cell init " << cell->getName() << std::endl;
     xmlFreeTextReader( reader );
 
     return cell;
@@ -334,13 +330,10 @@ namespace Netlist {
           break;
         case BeginSymbol:  // TME7
           if ( (nodeName == symbolTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT) ) {
-            std::cout << "commence Symbol::fromXml" << std::endl;
             if (Symbol::fromXml(cell,reader)) {
-              std::cout << "fait Symbol::fromXml" << std::endl;
               state = EndCell;
               continue;
             }
-            else {std::cout << "Symbol::fromXml pas fait" << std::endl;}
           }
           break;
         case EndCell:

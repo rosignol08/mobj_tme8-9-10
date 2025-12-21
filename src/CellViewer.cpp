@@ -20,6 +20,7 @@ namespace Netlist{
     cellWidget_ = new CellWidget();
     saveCellDialog_ = new SaveCellDialog(this);
     instancesWidget_ = new InstancesWidget(cellWidget_);
+    cellsLib_ = new CellsLib(cellWidget_);
 
     instancesWidget_->setCellViewer(this);
 
@@ -48,7 +49,7 @@ namespace Netlist{
     connect(action, SIGNAL(triggered()), this, SLOT(close()));
   
     showInstancesWidget();
-    // showCellsLib();
+    showCellsLib();
   }
 
   CellViewer::~CellViewer () {}
@@ -77,9 +78,8 @@ namespace Netlist{
     QString cellName;
     if(OpenCellDialog::run(cellName)){
       Cell* cell = cell->load(cellName.toStdString());
-      //std::cout << cell->getName() << std::endl;
       if(cell != NULL){
-        //std::cout << "pas null" << std::endl;
+        emit cellLoaded();
         setCell(cell);
       }
     }
@@ -87,7 +87,7 @@ namespace Netlist{
 
   void CellViewer::showCellsLib ()
   {
-    // cellsLib_->show();
+    cellsLib_->show();
     return;
   }
 

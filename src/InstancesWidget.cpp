@@ -35,13 +35,6 @@ namespace Netlist{
 
     load_->setText("Load");
     connect(load_, SIGNAL(clicked()), this, SLOT(load()));
-
-    // action = new QAction("&Load", this);
-    // action->setStatusTip("Load cell");
-    // action->setShortcut(QKeySequence("CTRL+L"));
-    // action->setVisible(true);
-    // fileMenu->addAction(action);
-    // connect(action, SIGNAL(triggered()), this, SLOT(close()));
   }
 
   InstancesWidget::~InstancesWidget() {}
@@ -59,10 +52,14 @@ namespace Netlist{
 
   void InstancesWidget::load(){
     int selectedRow = getSelectedRow();
+    std::cout << "Selected row = "<< selectedRow << std::endl;
 
     if (selectedRow < 0) return;
     cellViewer_->setCell(baseModel_->getModel(selectedRow));
   }
 
-  void InstancesWidget::setCell(Cell* cell) { cellViewer_->setCell(cell); }
+  void InstancesWidget::setCell(Cell* cell) { 
+    cellViewer_->setCell(cell);
+    baseModel_->setCell(cell);
+  }
 }

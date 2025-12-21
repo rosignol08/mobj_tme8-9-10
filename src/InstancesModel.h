@@ -1,13 +1,3 @@
-
-//Fenêtre affichant la liste des instances et leurs modèles
-/*
-Le modèle associé à la QTableView (attribut view_) de type InstancesModel (attribut baseModel_) présentera deux colonnes:
-
-Le nom de l'instance.   
-Le nom du modèle de l'instance (le nom de la master cell).
-Ne pas oublier de fournir le nom des colonnes (headers).
-*/
-//#include "CellViewer.h"
 #include <QAbstractTableModel>
 
 namespace Netlist{
@@ -16,7 +6,7 @@ namespace Netlist{
     class Instance;
 
     class InstancesModel : public QAbstractTableModel {
-        //Q_OBJECT;
+        Q_OBJECT;
         public:
                         InstancesModel  (QObject* parent = NULL);
                        ~InstancesModel  ();

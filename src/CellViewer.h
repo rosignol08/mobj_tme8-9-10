@@ -14,16 +14,17 @@ namespace Netlist{
     Q_OBJECT;
 
     public:
-                        CellViewer          (QWidget* parent=NULL);
-      virtual          ~CellViewer          ();
-              Cell*     getCell             () const;
-              inline  CellsLib* getCellsLib ();  // TME9+.
+                        CellViewer            (QWidget* parent=NULL);
+      virtual          ~CellViewer            ();
+              Cell*     getCell               () const;
+              inline    CellsLib* getCellsLib ();  // TME9+.
     public slots:
-              void      setCell             (Cell*);
-              void      saveCell            ();
-              void      openCell            ();
-              void      showCellsLib        ();  // TME9+.
-              void      showInstancesWidget ();  // TME9+.
+              void      setCell               (Cell*);
+              void      saveCell              ();
+              void      openCell              ();
+              void      showCellsLib          ();  // TME9+.
+              void      showInstancesWidget   ();  // TME9+.
+              void      cellLoaded            () {};
 
     private:
       CellWidget*      cellWidget_;
@@ -32,7 +33,7 @@ namespace Netlist{
       SaveCellDialog*  saveCellDialog_;
   };
 
-  // inline CellsLib* getCellsLib() { return cellsLib_; };
+  inline CellsLib* CellViewer::getCellsLib() { return cellsLib_; };
 }
 
 

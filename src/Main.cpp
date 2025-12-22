@@ -39,7 +39,7 @@ int main ( int argc, char* argv[] ){
   QApplication* qa = new QApplication(argc, argv);
 
   CellViewer* viewer = new CellViewer();
-  //viewer->setCell(halfadder);
+  viewer->setCell(halfadder);
   std::cout << "half set\n" << std::endl;
   viewer->show();
   std::cout << "half show\n" << std::endl;

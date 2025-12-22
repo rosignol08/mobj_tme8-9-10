@@ -37,6 +37,7 @@
                                       InstancesModel.h
                                       CellsLib.h
                                       CellsModel.h
+                                      CellWidget.h
                        )
 
                     set( mocIncludes  SaveCellDialog.h

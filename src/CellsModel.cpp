@@ -11,7 +11,7 @@ namespace Netlist {
 
   Cell* CellsModel::getModel(int row)
   {
-    Cell::getAllCells()[row];
+    return Cell::getAllCells()[row];
   }
 
   int CellsModel::rowCount(const QModelIndex& parent) const
@@ -39,7 +39,8 @@ namespace Netlist {
   }
 
   void CellsModel::updateData(){
-        //met à jour la liste des modèles de cellules
+    /*
+    //met à jour la liste des modèles de cellules
         beginResetModel();//pr dire que ça change
         liste_modeles.clear();//le vecteur de models on le vide ici mec
         //copie des pointeurs dans le vecteur
@@ -54,5 +55,6 @@ namespace Netlist {
         //TODO voir si on a vrament besoin d'une boucle pour ça
         endResetModel();
     }
-
+*/    return;
+  }
 }

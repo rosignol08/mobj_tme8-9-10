@@ -7,13 +7,13 @@ namespace Netlist
     class CellViewer;
     class CellsModel;
 
-    class CellsLib
-    {: public QWidget
+    class CellsLib : public QWidget
         {
             Q_OBJECT;
 
         public:
             CellsLib(QWidget *parent = NULL);
+            ~CellsLib();
             void setCellViewer(CellViewer *);
             int getSelectedRow() const;
             inline CellsModel *getBaseModel();
@@ -27,7 +27,5 @@ namespace Netlist
             QPushButton *load_;
         };
 
-        CellsModel* CellsLib::getBaseModel () {
-            return baseModel_;};
+        CellsModel* CellsLib::getBaseModel () { return baseModel_;};
     }
-}

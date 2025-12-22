@@ -36,9 +36,11 @@ namespace Netlist {
     xmlTextReaderPtr reader;
 
     cerr << "Loading <" << cellFile << ">" << endl;
-    reader = xmlNewTextReaderFilename( cellFile.c_str() );
+    string chemin = "../work/cells/" + cellFile;
+
+    reader = xmlNewTextReaderFilename( chemin.c_str() );
     if (reader == NULL) {
-      cerr << "[ERROR] Cell::load() unable to open file <" << cellFile << ">." << endl;
+      cerr << "[ERROR] Cell::load() unable to open file <" << chemin << ">." << endl;
       return NULL;
     }
     Cell* cell = Cell::fromXml( reader );

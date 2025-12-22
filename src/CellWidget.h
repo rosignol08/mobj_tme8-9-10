@@ -11,6 +11,17 @@
 class QPainter;
 #include "Box.h"
 
+/*
+Widget affichant le dessin complet d'une Cell. On implantera progessivement l'affichage des différents éléments:
+
+Dessin du symbole des instances.
+Dessin des connecteurs des instances.
+Dessin des connecteurs du modèle.
+Dessin des fils.
+Fonctions de déplacement (haut, bas, gauche droite).
+
+*/
+
 namespace Netlist
 {
 
@@ -35,10 +46,18 @@ namespace Netlist
                     void    setCell(Cell *);
         inline      Cell    *getCell() const { return this->cell_; }
         inline      int     xToScreenX(int x) const { return x - viewport_.getX1(); }
-        inline      int     yToScreenY(int y) const { return viewport_.getY2() + y; }
+        inline      int     yToScreenY(int y) const { return viewport_.getY2() + y; } //TODO voir si faut remplacer par un -
         //converti de box en QRect
         inline      QRect boxToScreenRect(const Box &box) const
         {
+            /* //correction qu'on m'as donné mais jsp si c'est bon donc je met de cote
+            int x = xToScreenX(box.getX1());
+            // IMPORTANT : On prend le Y2 (le HAUT du schéma) pour le point de départ écran
+            int y = yToScreenY(box.getY2()); 
+            int w = box.getX2() - box.getX1();
+            int h = box.getY2() - box.getY1();
+            return QRect(x, y, w, h);
+            */
             int x = xToScreenX(box.getX1());
             int y = yToScreenY(box.getY1());
             int w = box.getX2() - box.getX1();
@@ -57,7 +76,7 @@ namespace Netlist
         }
         //converti de y widget vers y shema
         inline      int     screenYToY(int y) const {
-            return viewport_.getY2() + y;
+            return viewport_.getY2() + y; //TODO voir si faut remplacer par un -
         }
         //converti de QRect vers Box 
         inline      Box     screenRectToBox(const QRect &rect) const{

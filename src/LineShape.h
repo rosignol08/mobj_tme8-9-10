@@ -17,6 +17,11 @@ namespace Netlist{
                     Box     getBoundingBox  () const;
                     void    toXml           (std::ostream&);
             static  Shape*  fromXml         (Symbol*, xmlTextReaderPtr);
+                    //TODO jsp si on a le droit de faire ça mais c'est pratique
+                    int     getX1() const { return x1_; };
+                    int     getY1() const { return y1_; };
+                    int     getX2() const { return x2_; };
+                    int     getY2() const { return y2_; };
     };
 
 }

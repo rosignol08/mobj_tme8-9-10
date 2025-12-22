@@ -31,6 +31,7 @@ virtual          ~InstancesWidget ();
 
     public slots:
       void  load            ();
+      void  updateInstances ();
 
     private:
       CellViewer*     cellViewer_;

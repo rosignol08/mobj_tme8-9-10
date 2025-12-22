@@ -6,6 +6,7 @@ namespace Netlist{
     class CellsModel : public QAbstractTableModel{
         Q_OBJECT;
         public:
+        std::vector<Cell *> liste_modeles;
                       CellsModel    (QObject* parent = NULL);
                      ~CellsModel    ();
             Cell*     getModel      (int row);

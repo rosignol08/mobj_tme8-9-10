@@ -11,12 +11,13 @@ namespace Netlist {
 
   Cell* CellsModel::getModel(int row)
   {
-    return Cell::getAllCells()[row];
+    if (row < 0 || row >= (int)liste_modeles.size()) return NULL;
+    return liste_modeles[row];
   }
 
   int CellsModel::rowCount(const QModelIndex& parent) const
   {
-    return Cell::getAllCells().size();
+    return liste_modeles.size();
   }
 
   int CellsModel::columnCount(const QModelIndex& parent) const
@@ -26,7 +27,7 @@ namespace Netlist {
   {
     if (index.isValid() && role == Qt::DisplayRole){
       int row = index.row();
-      return Cell::getAllCells()[row]->getName().c_str();
+      return liste_modeles[row]->getName().c_str();
     }
     return QVariant();
   }
@@ -39,7 +40,7 @@ namespace Netlist {
   }
 
   void CellsModel::updateData(){
-    /*
+    
     //met à jour la liste des modèles de cellules
         beginResetModel();//pr dire que ça change
         liste_modeles.clear();//le vecteur de models on le vide ici mec
@@ -54,7 +55,9 @@ namespace Netlist {
         }
         //TODO voir si on a vrament besoin d'une boucle pour ça
         endResetModel();
+        std::cout << "mise à jour faite : " << liste_modeles.size() << " modèles disponibles." << std::endl;
+        //envoie du signal que les données ont changé
+        //emit dataChanged(index(0,0), index(rowCount()-1, columnCount()-1));
+        return;
     }
-*/    return;
-  }
 }

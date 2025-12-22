@@ -19,8 +19,8 @@ namespace Netlist{
   {
     cellWidget_ = new CellWidget();
     saveCellDialog_ = new SaveCellDialog(this);
-    instancesWidget_ = new InstancesWidget(cellWidget_);
-    cellsLib_ = new CellsLib(this); //faut utiliser this enfaite 
+    instancesWidget_ = new InstancesWidget(NULL); //fenêtre séparée
+    cellsLib_ = new CellsLib(NULL); //fenêtre séparée psk c'est trop chiant sinon
 
     instancesWidget_->setCellViewer(this);
     cellsLib_->setCellViewer(this);
@@ -61,6 +61,7 @@ namespace Netlist{
 
   void CellViewer::setCell (Cell* cell) {
     cellWidget_->setCell(cell);
+    emit cellLoaded();//le signal pour instance widget
   }
 
   void CellViewer::saveCell (){

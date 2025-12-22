@@ -16,8 +16,7 @@ using namespace Netlist;
 #include <QtGui>
 #include "CellViewer.h"
 
-int main ( int argc, char* argv[] )
-{
+int main ( int argc, char* argv[] ){
   // CHARGEMENT DES MODELES
   std::cout << "Chargement des modeles..." << std::endl;
   Cell* vdd = Cell::load( "vdd" );
@@ -40,7 +39,7 @@ int main ( int argc, char* argv[] )
   QApplication* qa = new QApplication(argc, argv);
 
   CellViewer* viewer = new CellViewer();
-  viewer->setCell(halfadder);
+  //viewer->setCell(halfadder);
   std::cout << "half set\n" << std::endl;
   viewer->show();
   std::cout << "half show\n" << std::endl;

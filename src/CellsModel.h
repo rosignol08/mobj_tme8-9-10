@@ -15,6 +15,7 @@ namespace Netlist{
             QVariant  headerData    (int section
                                     , Qt::Orientation Orientation
                                     , int role=Qt::DisplayRole) const;
+        public slots:                    
             void updateData();
     };
 }

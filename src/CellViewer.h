@@ -27,7 +27,8 @@ namespace Netlist
               void      showCellsLib          ();  // TME9+.
               void      showInstancesWidget   ();  // TME9+.
     // signal //c'est un signal
-              void      cellLoaded            () {};
+    signals:
+              void      cellLoaded            ();
 
     private:
         CellWidget *cellWidget_;

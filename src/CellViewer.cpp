@@ -20,9 +20,10 @@ namespace Netlist{
     cellWidget_ = new CellWidget();
     saveCellDialog_ = new SaveCellDialog(this);
     instancesWidget_ = new InstancesWidget(cellWidget_);
-    cellsLib_ = new CellsLib(cellWidget_);
+    cellsLib_ = new CellsLib(this); //faut utiliser this enfaite 
 
     instancesWidget_->setCellViewer(this);
+    cellsLib_->setCellViewer(this);
 
     setCentralWidget(cellWidget_);
     QMenu* fileMenu = menuBar()->addMenu("&File");
@@ -77,24 +78,23 @@ namespace Netlist{
   void CellViewer::openCell (){
     QString cellName;
     if(OpenCellDialog::run(cellName)){
-      Cell* cell = cell->load(cellName.toStdString());
+      Cell* cell = Cell::load(cellName.toStdString());
       if(cell != NULL){
-        emit cellLoaded();
         setCell(cell);
+        emit cellLoaded(); //le signal 
       }
     }
-    emit cellLoaded();
   }
 
   void CellViewer::showCellsLib ()
   {
-    cellsLib_->show();
+    cellsLib_->show(); //TODO voir si ça a vraiment un effet
     return;
   }
 
   void CellViewer::showInstancesWidget ()
   {
-    instancesWidget_->show();
+    instancesWidget_->show(); //TODO pareil voir si ça a vraiment un effet
     return;
   }
 

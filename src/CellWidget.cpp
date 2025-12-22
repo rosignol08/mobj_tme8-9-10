@@ -77,7 +77,7 @@ namespace Netlist {
 
     QPainter painter(this);
     painter.setFont      ( bigFont );
-    painter.setBackground( QBrush( Qt::black ) );
+    painter.setBackground( QBrush( Qt::white ) );
     painter.eraseRect    ( QRect( QPoint(0,0), size() ) );
 
     int frameWidth  = 460;

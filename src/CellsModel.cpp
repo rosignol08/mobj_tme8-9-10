@@ -38,8 +38,21 @@ namespace Netlist {
     return "Cell";
   }
 
-  void CellsModel::updateData()
-  {
-    
-  }
+  void CellsModel::updateData(){
+        //met à jour la liste des modèles de cellules
+        beginResetModel();//pr dire que ça change
+        liste_modeles.clear();//le vecteur de models on le vide ici mec
+        //copie des pointeurs dans le vecteur
+        const std::vector<Cell*>& modeles = Cell::getAllCells();
+        
+        
+        for (Cell* cell : modeles) {
+            if(cell != nullptr){
+                liste_modeles.push_back(cell);//stocke le pointeur
+            }
+        }
+        //TODO voir si on a vrament besoin d'une boucle pour ça
+        endResetModel();
+    }
+
 }

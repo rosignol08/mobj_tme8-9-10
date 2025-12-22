@@ -35,7 +35,6 @@ namespace Netlist {
   
     load_->setText("Load");
     connect(load_, SIGNAL(clicked()), this, SLOT(load()));
-    connect(cellViewer_, SIGNAL(cellViewer_->cellLoaded()), SLOT(baseModel_->updateData()));
   }
 
   CellsLib::~CellsLib()
@@ -44,13 +43,11 @@ namespace Netlist {
   void CellsLib::setCellViewer  (CellViewer* cellviewer)
   {
     cellViewer_ = cellviewer;
+    if(cellViewer_ && baseModel_) {
+      connect(cellViewer_, SIGNAL(cellLoaded()), baseModel_, SLOT(updateData()));
+    }
   }
 
-  //comme pour elle
-  /* QModelIndexList selecteds = view_->selectionModel()->selection().indexes();
-  if (selected.empty()) return -1;
-  return selecteds.first().row();
-  */
   int CellsLib::getSelectedRow () const
   {
     QModelIndexList selecteds = view_->selectionModel()->selection().indexes();

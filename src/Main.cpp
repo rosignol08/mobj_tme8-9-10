@@ -20,12 +20,12 @@ int main ( int argc, char* argv[] )
 {
   // CHARGEMENT DES MODELES
   std::cout << "Chargement des modeles..." << std::endl;
-  Cell::load( "vdd" );
-  Cell::load( "gnd" );
-  Cell::load( "TransistorN" );
-  Cell::load( "TransistorP" );
-  Cell::load( "and2" );
-  Cell::load( "or2" );
+  Cell* vdd = Cell::load( "vdd" );
+  Cell* gnd = Cell::load( "gnd" );
+  Cell* transistorN = Cell::load( "TransistorN" );
+  Cell* transistorP = Cell::load( "TransistorP" );
+  Cell* and2 = Cell::load( "and2" );
+  Cell* or2 = Cell::load( "or2" );
   Cell* xor2      = Cell::load( "xor2" );
   Cell* halfadder = Cell::load( "halfadder" );
   std::cout << "half chargé" << std::endl;

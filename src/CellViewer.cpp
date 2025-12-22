@@ -83,6 +83,7 @@ namespace Netlist{
         setCell(cell);
       }
     }
+    emit cellLoaded();
   }
 
   void CellViewer::showCellsLib ()

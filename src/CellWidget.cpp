@@ -281,12 +281,14 @@ namespace Netlist
 
             for (Node* node: net->getNodes()){
                 if (node){
-                    // TODO essayer de garder que les fils qui connectent au moins 3 fils 
-                    int width = 10;
-                    painter.setPen(QPen(Qt::cyan));
-                    int x = xToScreenX(node->getPosition().getX());
-                    int y = yToScreenY(node->getPosition().getY());
-                    painter.drawRect(x - width/2, y - width/2, width, width);
+                    if (node->getLines().size() >= 3) {
+                        int width = 10;
+                        painter.setPen(QPen(Qt::cyan));
+                        int x = xToScreenX(node->getPosition().getX());
+                        int y = yToScreenY(node->getPosition().getY());
+                        painter.drawRect(x - width/2, y - width/2, width, width);
+                    }
+                    
                 }
             }
         }

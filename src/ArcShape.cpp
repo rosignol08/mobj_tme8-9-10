@@ -20,13 +20,13 @@ namespace Netlist{
 	{ return box_ ; }
 
 	void ArcShape::toXml(std::ostream& stream) {
-		stream 	<< indent << "<ellipse x1=\"" << box_.getX1() << "\""
-				<< " y1=\"" << box_.getY1() << "\""
-				<< " x2=\"" << box_.getX2() << "\""
-				<< " y2=\"" << box_.getY2() << "\""
-                << " start=\"" << start_ << "\""
-                << " span=\"" << span_
-                << "\"/>" << std::endl;
+		stream 	<< indent << "<arc x1=\"" << box_.getX1() << "\""
+											<< " y1=\"" << box_.getY1() << "\""
+											<< " x2=\"" << box_.getX2() << "\""
+											<< " y2=\"" << box_.getY2() << "\""
+                			<< " start=\"" << start_ << "\""
+                			<< " span=\"" << span_
+                			<< "\"/>" << std::endl;
 	}
 
 	Shape* ArcShape::fromXml (Symbol* owner, xmlTextReaderPtr reader) {
@@ -35,8 +35,8 @@ namespace Netlist{
 		xmlGetIntAttribute(reader, "y1", y1);
 		xmlGetIntAttribute(reader, "x2", x2);
 		xmlGetIntAttribute(reader, "y2", y2);
-        xmlGetIntAttribute(reader, "start", start);
-        xmlGetIntAttribute(reader, "span", span);
+  	xmlGetIntAttribute(reader, "start", start);
+  	xmlGetIntAttribute(reader, "span", span);
 		return new ArcShape(owner, x1, y1, x2, y2, start, span);
 	}
 }

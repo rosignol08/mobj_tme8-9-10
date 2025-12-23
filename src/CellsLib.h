@@ -13,7 +13,7 @@ namespace Netlist
 
         public:
             CellsLib(QWidget *parent = NULL);
-            ~CellsLib();
+           ~CellsLib();
             void setCellViewer(CellViewer *);
             int getSelectedRow() const;
             inline CellsModel *getBaseModel();

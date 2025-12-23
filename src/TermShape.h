@@ -9,14 +9,15 @@ namespace Netlist{
 
   class TermShape : public Shape {
     public :
-                      TermShape       ( Symbol* owner, std::string name, int x , int y, NameAlign name_align = TopLeft);
-                     ~TermShape       ();
-              Box     getBoundingBox  () const ;
-      inline  Term *  getTerm         () const ;
-      inline  int     getX            () const ;
-      inline  int     getY            () const ;
-              void    toXml           (std::ostream&);
-      static  Shape*  fromXml         (Symbol*, xmlTextReaderPtr);
+                        TermShape       ( Symbol* owner, std::string name, int x , int y, NameAlign name_align = TopLeft);
+                       ~TermShape       ();
+              Box       getBoundingBox  () const ;
+      inline  Term *    getTerm         () const ;
+      inline  int       getX            () const ;
+      inline  int       getY            () const ;
+      inline  NameAlign getAlign        () const ;
+              void      toXml           (std::ostream&);
+      static  Shape*    fromXml         (Symbol*, xmlTextReaderPtr);
 
     private :
       Term * term_ ;
@@ -26,5 +27,6 @@ namespace Netlist{
   inline Term* TermShape::getTerm() const { return term_; }
   inline int TermShape::getX() const { return x_; }
   inline int TermShape::getY() const { return y_; }
+  inline NameAlign TermShape::getAlign() const { return align_; };
 
 }

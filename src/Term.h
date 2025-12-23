@@ -27,7 +27,7 @@ namespace Netlist {
             */
                                     Term            ( Cell* , const std :: string & name , Direction );
                                     Term            ( Instance * , const Term * modelTerm );
-                                    ~Term           ();
+                                   ~Term            ();
             bool                    isInternal      () const ;
             bool                    isExternal      () const ;
             const std::string &     getName         () const ;

@@ -18,7 +18,11 @@ namespace Netlist{
                            ~ArcShape        ();
                     Box     getBoundingBox  () const;
                     void    toXml           (std::ostream&);
+            inline  int     getStart        ();
+            inline  int     getSpan         ();
             static  Shape*    fromXml         (Symbol*, xmlTextReaderPtr);
     };
 
+  int ArcShape::getStart() {return start_;}
+  int ArcShape::getSpan() {return span_;}
 }

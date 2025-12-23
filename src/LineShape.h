@@ -18,10 +18,15 @@ namespace Netlist{
                     void    toXml           (std::ostream&);
             static  Shape*  fromXml         (Symbol*, xmlTextReaderPtr);
                     //TODO jsp si on a le droit de faire ça mais c'est pratique
-                    int     getX1() const { return x1_; };
-                    int     getY1() const { return y1_; };
-                    int     getX2() const { return x2_; };
-                    int     getY2() const { return y2_; };
+            inline  int     getX1           () const;
+            inline  int     getY1           () const;
+            inline  int     getX2           () const;
+            inline  int     getY2           () const;
     };
+
+    int LineShape::getX1() const { return x1_; };
+    int LineShape::getY1() const { return y1_; };
+    int LineShape::getX2() const { return x2_; };
+    int LineShape::getY2() const { return y2_; };
 
 }

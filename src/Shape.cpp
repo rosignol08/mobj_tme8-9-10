@@ -33,17 +33,16 @@ namespace Netlist{
     Shape* shape = NULL;
     if (boxTag == nodeName)
       shape = BoxShape::fromXml( owner, reader );
-    if (ellipseTag == nodeName)
+    else if (ellipseTag == nodeName)
       shape = EllipseShape::fromXml( owner, reader );
-    if (arcTag == nodeName)
+    else if (arcTag == nodeName)
       shape = ArcShape::fromXml( owner, reader );
-    if (lineTag == nodeName)
+    else if (lineTag == nodeName)
       shape = LineShape::fromXml( owner, reader );
-    if (termTag == nodeName)
+    else if (termTag == nodeName)
       shape = TermShape::fromXml( owner, reader );
-    if (shape == NULL)
-      std::cerr << "[ERROR] Unknown or misplaced tag <" << nodeName << "> (line:"
-          << xmlTextReaderGetParserLineNumber(reader) << ")." << std::endl;
+    else  std::cerr << "[ERROR] Unknown or misplaced tag <" << nodeName << "> (line:"
+                    << xmlTextReaderGetParserLineNumber(reader) << ")." << std::endl;
     return shape;
 
 

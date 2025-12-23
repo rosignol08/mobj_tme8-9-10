@@ -38,6 +38,7 @@
                                       CellsLib.h
                                       CellsModel.h
                                       CellWidget.h
+                                      Draw.h
                        )
 
                     set( mocIncludes  SaveCellDialog.h
@@ -76,6 +77,7 @@
                                       CellsLib.cpp
                                       CellsModel.cpp
                                       Main.cpp
+                                      Draw.cpp
                        )
 
            #qt4_wrap_cpp( mocCpps      ${mocIncludes} )

@@ -17,7 +17,7 @@ namespace Netlist{
   ,instancesWidget_(NULL)
   ,saveCellDialog_(NULL)
   {
-    cellWidget_ = new CellWidget();
+    cellWidget_ = new CellWidget(this);
     saveCellDialog_ = new SaveCellDialog(this);
     instancesWidget_ = new InstancesWidget(NULL); //fenêtre séparée
     cellsLib_ = new CellsLib(NULL); //fenêtre séparée psk c'est trop chiant sinon

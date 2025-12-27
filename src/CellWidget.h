@@ -89,7 +89,7 @@ namespace Netlist
 
   inline int CellWidget::xToScreenX(int x) const { return x - viewport_.getX1(); }
 
-  inline int CellWidget::yToScreenY(int y) const { return viewport_.getY2() + y; } //TODO voir si faut remplacer par un -
+  inline int CellWidget::yToScreenY(int y) const { return viewport_.getY2() - y; } //TODO voir si faut remplacer par un -
 
   //converti de box en QRect
   inline QRect CellWidget::boxToScreenRect(const Box &box) const
@@ -103,7 +103,7 @@ namespace Netlist
       return QRect(x, y, w, h);
       */
       int x = xToScreenX(box.getX1());
-      int y = yToScreenY(box.getY1());
+      int y = yToScreenY(box.getY2());
       int w = box.getX2() - box.getX1();
       int h = box.getY2() - box.getY1();
       return QRect(x, y, w, h);
@@ -121,7 +121,7 @@ namespace Netlist
   inline int CellWidget::screenXToX(int x) const { return x + viewport_.getX1(); }
 
   //converti de y widget vers y shema
-  inline int CellWidget::screenYToY(int y) const { return viewport_.getY2() + y; } //TODO voir si faut remplacer par un -
+  inline int CellWidget::screenYToY(int y) const { return viewport_.getY2() - y; } //TODO voir si faut remplacer par un -
 
   //converti de QRect vers Box 
   inline Box CellWidget::screenRectToBox(const QRect &rect) const

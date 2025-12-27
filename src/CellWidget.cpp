@@ -169,7 +169,8 @@ namespace Netlist
 
         int width = 10;
 
-        QPoint p(xToScreenX(x) + termShape->getX(), yToScreenY(y) + termShape->getY());
+        QPoint p(xToScreenX(x + termShape->getX()), yToScreenY(y + termShape->getY())); //TODO ça marche c'etait ça avant
+        //QPoint p(xToScreenX(x) + termShape->getX(), yToScreenY(y) + termShape->getY()); //céest cassé ça 
         QRect rect = QRect(p.x() - (width/2), p.y() - (width/2), width, width);
         // QPainter::fillRect(rect, Qt::red);
         // fillRect(rect, Qt::red);

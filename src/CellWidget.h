@@ -32,6 +32,7 @@ namespace Netlist
     class ArcShape;
     class EllipseShape;
     class Term;
+    class Instance; //test: si on veut ajouter des instances
 
     /*
     Point	  x, y
@@ -66,6 +67,10 @@ namespace Netlist
     protected:
         virtual     void    paintEvent(QPaintEvent *);
         virtual     void    keyPressEvent(QKeyEvent *);
+        //test: si on veut ajouter des instances
+        virtual     void    mouseMoveEvent(QMouseEvent*); //fonction pour les ajout d'instances
+        virtual     void    mousePressEvent(QMouseEvent*); //fonction pour les ajout d'instances
+        virtual     void    mouseReleaseEvent(QMouseEvent*); //fonction pour les ajout d'instances
 
     public slots:
                     void    goLeft();
@@ -76,7 +81,13 @@ namespace Netlist
     private:
         Cell *cell_;
         Box viewport_;
+        //test: si on veut ajouter des instances
+        QPoint dragStartPoint_; //pareil c'est pour drag les instances
+        bool dragging_; //pareil c'est pour drag les instances
+        Instance* selectedInstance_; //pareil c'est pour drag les instances
+        bool movingInstance_; //pareil c'est pour drag les instances
 
+        Instance* findInstanceAt(const Point& position); //test: si on veut ajouter des instances
         void drawBoxShape     (BoxShape* ellipseShape, QPainter & painter, Point instPoint);
         void drawLineShape    (LineShape* ellipseShape, QPainter & painter, Point instPoint);
         void drawTermShape    (TermShape* ellipseShape, QPainter & painter, Point instPoint);

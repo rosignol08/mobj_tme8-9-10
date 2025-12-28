@@ -19,6 +19,7 @@ namespace Netlist
             inline CellsModel *getBaseModel();
         public slots:
             void load();
+            void addAsInstance(); //ajout comme si c une instance a cellule actuelle test: si on veut ajouter des instances
 
         private:
             CellViewer *cellViewer_;

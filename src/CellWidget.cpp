@@ -45,13 +45,15 @@ namespace Netlist
     }
 
     CellWidget::CellWidget(QWidget *parent)
-        : QWidget(parent), cell_(nullptr),viewport_(0,-500,500,0){
+        : QWidget(parent), cell_(nullptr),viewport_(0,-500,500,0), dragging_(false), 
+          selectedInstance_(nullptr), movingInstance_(false){//test: si on veut ajouter des instances ducoup ca change la fonction du constructeur
         setAttribute(Qt::WA_OpaquePaintEvent,true);//on retrace "tout" (avant et arrière plan)
         setAttribute(Qt::WA_NoSystemBackground,true);//important
         setAttribute(Qt::WA_StaticContents);//jsp
         setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         setFocusPolicy(Qt::StrongFocus);
         setMouseTracking(true);
+        setAcceptDrops(true);//test: si on veut ajouter des instances
     }
 
     CellWidget::~CellWidget() {}
@@ -259,6 +261,28 @@ namespace Netlist
                     else std::cout << " -> Forme ignoree (pas une shape définie)" << std::endl;
                 }
                 std::cout << "Instance " << instances[i]->getName() << " at " << position << std::endl;
+                //test: si on veut ajouter des instances
+                //draw un rectangle autour si elle est selec
+                if(selectedInstance_ == instances[i]){
+                    painter.setPen(QPen(Qt::red, 2, Qt::DashLine));
+                    //la bounding box de instance
+                    bool firstShape = true;
+                    Box totalBox;
+                    for(Shape* shape : shapes){
+                        Box box = shape->getBoundingBox();
+                        box.translate(position);
+                        if(firstShape){
+                            totalBox = box;
+                            firstShape = false;
+                        } else {
+                            totalBox.merge(box);
+                        }
+                    }
+                    if(!firstShape){
+                        QRect selectionRect = boxToScreenRect(totalBox);
+                        painter.drawRect(selectionRect);
+                    }
+                }
             }
         }
         for (Term* term: terms){
@@ -342,6 +366,86 @@ namespace Netlist
                 return;
         }
         event->accept();
+    }
+    //test: si on veut ajouter des instances tout ce qui est en dessous
+    //cherche instance a position donnee
+    Instance* CellWidget::findInstanceAt(const Point& position){
+        if(!cell_) return nullptr;
+        
+        const std::vector<Instance*>& instances = cell_->getInstances();
+        //regarde ordre inverse pour select instance du dessus
+        for(int i = instances.size() - 1; i >= 0; --i){
+            Instance* inst = instances[i];
+            Point instPos = inst->getPosition();
+            const Symbol* symbol = inst->getMasterCell()->getSymbol();
+            if(!symbol) continue;
+            
+            //recup la bounding box du symbole
+            const std::vector<Shape*>& shapes = symbol->getShapes();
+            for(Shape* shape : shapes){
+                Box box = shape->getBoundingBox();
+                box.translate(instPos);
+                
+                //check si le point est dans la box
+                if(position.getX() >= box.getX1() && position.getX() <= box.getX2() &&
+                   position.getY() >= box.getY1() && position.getY() <= box.getY2()){
+                    return inst;
+                }
+            }
+        }
+        return nullptr;
+    }
+
+    void CellWidget::mousePressEvent(QMouseEvent* event){
+        if (event->button() == Qt::LeftButton) {
+            QPoint clickPos = event->pos();
+            Point schemaPos = screenPointToPoint(clickPos);
+            
+            //check si on clique sur une instance
+            Instance* clickedInstance = findInstanceAt(schemaPos);
+            
+            if(clickedInstance){
+                //selec instance et et preparer a deplacer
+                selectedInstance_ = clickedInstance;
+                movingInstance_ = true;
+                dragStartPoint_ = clickPos;
+                std::cout << "Instance sélectionnée: " << selectedInstance_->getName() << std::endl;
+            } else {
+                //ça deplace le viewport
+                selectedInstance_ = nullptr;
+                dragging_ = true;
+                dragStartPoint_ = clickPos;
+            }
+            repaint();
+        }
+    }
+
+    void CellWidget::mouseMoveEvent(QMouseEvent* event){
+        if (movingInstance_ && selectedInstance_ && (event->buttons() & Qt::LeftButton)) {
+            //ça deplace instance selec
+            QPoint delta = event->pos() - dragStartPoint_;
+            Point schemaDelta(-delta.x(), delta.y());
+            
+            Point currentPos = selectedInstance_->getPosition();
+            selectedInstance_->setPosition(Point(currentPos.getX() - delta.x(), 
+                                                  currentPos.getY() + delta.y()));
+            
+            dragStartPoint_ = event->pos();
+            repaint();
+        } else if (dragging_ && (event->buttons() & Qt::LeftButton)) {
+            //ça deplace le viewport
+            QPoint delta = event->pos() - dragStartPoint_;
+            viewport_.translate(Point(-delta.x(), delta.y()));
+            dragStartPoint_ = event->pos();
+            repaint();
+        }
+    }
+
+    void CellWidget::mouseReleaseEvent(QMouseEvent* event){
+        if (event->button() == Qt::LeftButton) {
+            dragging_ = false;
+            movingInstance_ = false;
+        }
     }
 
 } // Netlist namespace.

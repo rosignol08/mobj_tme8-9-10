@@ -41,7 +41,16 @@ namespace Netlist{
     action->setVisible(true);
     fileMenu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(openCell()));
+    //test: si on veut ajouter des instances
 
+    action = new QAction ("&New Cell", this);
+    action->setStatusTip("Create a new empty Cell");
+    action->setShortcut(QKeySequence("CTRL+N"));
+    action->setVisible(true);
+    fileMenu->addAction(action);
+    connect(action, SIGNAL(triggered()), this, SLOT(newCell()));
+    //fin test: si on veut ajouter des instances
+    
     action = new QAction("&Quit", this);
     action->setStatusTip("Exit the Netlist Viewer");
     action->setShortcut(QKeySequence("CTRL+Q"));
@@ -83,6 +92,22 @@ namespace Netlist{
       if(cell != NULL){
         setCell(cell);
         emit cellLoaded(); //le signal 
+      }
+    }
+  }
+  //test: si on veut ajouter des instances
+  void CellViewer::newCell(){
+    QString cellName;
+    if(OpenCellDialog::run(cellName)){
+      // Vérifier si la cellule existe déjà
+      Cell* existingCell = Cell::find(cellName.toStdString());
+      if(existingCell){
+        setCell(existingCell);
+      } else {
+        // Créer une nouvelle cellule vide
+        Cell* cell = new Cell(cellName.toStdString());
+        setCell(cell);
+        emit cellLoaded();
       }
     }
   }

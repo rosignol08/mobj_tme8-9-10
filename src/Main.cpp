@@ -31,7 +31,7 @@ int main ( int argc, char* argv[] ){
 
   // cout << "\nContenu du <xor2>:" << endl;
   // xor2->toXml( cout );
-
+  
   cout << "\nContenu du <halfadder>:" << endl;
   halfadder->toXml( cout );
 

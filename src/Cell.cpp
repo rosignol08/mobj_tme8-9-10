@@ -32,6 +32,13 @@ namespace Netlist {
 
   Cell* Cell::load ( const string& cellName )
   {
+    //si la cellule existe déjà en mémoire pour eviter de crasher
+    Cell* existingCell = Cell::find(cellName);
+    if (existingCell) {
+      cerr << "Cell <" << cellName << "> deja chargee." << endl;
+      return existingCell;
+    }
+
     string cellFile = cellName + ".xml";
     xmlTextReaderPtr reader;
 

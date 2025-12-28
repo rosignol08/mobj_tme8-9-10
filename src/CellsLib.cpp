@@ -5,6 +5,9 @@
 #include "CellsLib.h"
 #include "CellViewer.h"
 #include "CellsModel.h"
+//test: si on veut ajouter des instances
+#include "Instance.h"
+#include "Point.h"
 
 
 namespace Netlist {
@@ -29,6 +32,10 @@ namespace Netlist {
     //config du bouton
     load_->setText("Load");
     connect(load_, SIGNAL(clicked()), this, SLOT(load()));
+    //test: si on veut ajouter des instances double click TODO marche pas trop
+    
+    // Double-clic pour ajouter comme instance
+    connect(view_, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(addAsInstance()));
     
     //pour positionner les widgets
     QVBoxLayout* layout = new QVBoxLayout();
@@ -68,5 +75,39 @@ namespace Netlist {
   
     if(selectedRow < 0) return;
     cellViewer_->setCell(baseModel_->getModel(selectedRow));
+  }
+  //test: si on veut ajouter des instances
+  void CellsLib::addAsInstance()//TODO regarde si ça te plait
+  {
+    int selectedRow = getSelectedRow();
+    if(selectedRow < 0) return;
+    
+    Cell* currentCell = cellViewer_->getCell();
+    if(!currentCell) {
+      std::cerr << "[ERROR] No cell loaded to add instance to" << std::endl;
+      return;
+    }
+    
+    Cell* masterCell = baseModel_->getModel(selectedRow);
+    if(!masterCell) return;
+    
+    //gen un nom pour l'instance
+    static int instanceCounter = 0;
+    std::string instanceName = masterCell->getName() + "_" + std::to_string(instanceCounter++);
+    
+    //calcul de position avec offset pour pas de chevauchement
+    int offsetX = (instanceCounter % 5) * 100;  //5 colonnes
+    int offsetY = (instanceCounter / 5) * 100;  //new ligne tout les 5
+    
+    //creat de l'instance
+    Instance* newInstance = new Instance(currentCell, masterCell, instanceName);
+    newInstance->setPosition(Point(offsetX, offsetY));
+    
+    std::cout << "Instance <" << instanceName << "> of <" << masterCell->getName() 
+              << "> added to <" << currentCell->getName() << "> at position (" 
+              << offsetX << ", " << offsetY << ")" << std::endl;
+    
+    //updata l'affichage
+    cellViewer_->setCell(currentCell);
   }
 }

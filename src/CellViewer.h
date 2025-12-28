@@ -24,6 +24,7 @@ namespace Netlist
               void      setCell               (Cell*);
               void      saveCell              ();
               void      openCell              ();
+              void      newCell               ();  //cree une nouvelle cellule test: si on veut ajouter des instances
               void      showCellsLib          ();  // TME9+.
               void      showInstancesWidget   ();  // TME9+.
     // signal //c'est un signal
